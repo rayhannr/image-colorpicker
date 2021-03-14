@@ -19,8 +19,6 @@ const App: React.FC = () => {
   const [pickedColor, setPickedColor] = useState<RGB>()
   const [tailwindColor, setTailwindColor] = useState<TailwindColor>()
 
-  
-
   useEffect(() => {
     if (pickedColor) {
       const closestTailwindColor = getClosestTailwindColor(pickedColor)
