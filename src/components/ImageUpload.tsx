@@ -27,7 +27,7 @@ const ImageUpload: React.FC<Props> = props => {
     const imagePicked = (event: ChangeEvent) => {
         let pickedFile
         const input = event.target as HTMLInputElement
-        if (input.files?.length === 1 && input.files[0]?.size <= 5120000) {
+        if (input.files?.length === 1) {
             pickedFile = input.files[0]
             setFile(pickedFile)
         }
@@ -35,10 +35,10 @@ const ImageUpload: React.FC<Props> = props => {
 
     const fileInput = (
         <>
-            <UploadImage className="mx-auto h-12 w-12 text-orange-500" />
+            <UploadImage className="mx-auto h-12 w-12 text-gray-600" />
             <div className="text-sm text-center">
                 <label className="relative cursor-pointer bg-transparent rounded-md font-medium focus-within:outline-none">
-                    <span className="text-gray-700 hover:text-orange-500">Upload SVG</span>
+                    <span className="text-gray-700 hover:text-gray-500">Upload Image</span>
                     <input
                         name="file-upload"
                         type="file"
@@ -48,7 +48,7 @@ const ImageUpload: React.FC<Props> = props => {
                 </label>
             </div>
             <p className="text-xs text-gray-400">
-                The .jpg, .jpeg, .png, or .svg file should be less than 5 MB
+                Please upload only .jpg, .jpeg, .png, or .svg file
             </p>
         </>
     )
