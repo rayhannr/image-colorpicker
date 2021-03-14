@@ -1,5 +1,7 @@
 import React, { useCallback, useState, useEffect } from 'react'
-import { tailwindColors, RGB } from './constants/colors'
+
+import { RGB } from './constants/colors'
+import {getClosestTailwindColor, getHexFromColor} from './util/colors'
 import './tailwind.css'
 
 import ImageUpload from './components/ImageUpload'
@@ -17,57 +19,14 @@ const App: React.FC = () => {
   const [pickedColor, setPickedColor] = useState<RGB>()
   const [tailwindColor, setTailwindColor] = useState<TailwindColor>()
 
-  const hexToRGB = (hex: string) => {
-    const red = parseInt(hex.slice(1, 3), 16)
-    const green = parseInt(hex.slice(3, 5), 16)
-    const blue = parseInt(hex.slice(5, 7), 16)
-
-    return [red, green, blue] as RGB
-  }
-
-  const getHexFromColor = (color: RGB) => {
-    let hexColorCode: string = '#'
-    for (const c of color) {
-      hexColorCode += c.toString(16).padStart(2, '0')
-    }
-    return hexColorCode.toUpperCase()
-  }
-
-  const calculateColorDifference = (firstColor: RGB, secondColor: RGB) => {
-    let difference: number = 0
-    for (let i = 0; i < firstColor.length; i++) {
-      difference += Math.abs(firstColor[i] - secondColor[i])
-    }
-    return difference
-  }
-
-  const getClosestTailwindColor = useCallback(() => {
-    if (pickedColor) {
-      let leastDifference = Number.MAX_SAFE_INTEGER
-      let leastColorKey = ''
-      let leastColor = ''
-
-      for (const colorKey in tailwindColors) {
-        let colorValue = hexToRGB(tailwindColors[colorKey])
-        let colorDifference = calculateColorDifference(colorValue, pickedColor)
-
-        if (colorDifference < leastDifference) {
-          leastDifference = colorDifference
-          leastColorKey = colorKey
-          leastColor = getHexFromColor(colorValue)
-        }
-      }
-
-      return { key: leastColorKey, value: leastColor, output: `${leastColorKey}: ${leastColor}` }
-    }
-  }, [pickedColor])
+  
 
   useEffect(() => {
     if (pickedColor) {
-      const closestTailwindColor = getClosestTailwindColor()
+      const closestTailwindColor = getClosestTailwindColor(pickedColor)
       setTailwindColor(closestTailwindColor)
     }
-  }, [pickedColor, getClosestTailwindColor])
+  }, [pickedColor])
 
   const readFileUrl = useCallback((fileUrl: string) => {
     setImageUrl(fileUrl)
@@ -86,7 +45,7 @@ const App: React.FC = () => {
             className="w-full mb-4 lg:mb-0 h-full bg-white" />
 
           {pickedColor && tailwindColor &&
-            <div className="mt-3 flex flex-row justify-between">
+            <div className="my-4 flex flex-row justify-between">
               <ColorBox
                 color={getHexFromColor(pickedColor)}
                 title="Picked color"
