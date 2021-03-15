@@ -47,8 +47,8 @@ const ImageUpload: React.FC<Props> = props => {
                         onChange={imagePicked} />
                 </label>
             </div>
-            <p className="text-xs text-gray-400">
-                Please upload only .jpg, .jpeg, .png, or .svg file
+            <p className="text-sm text-gray-400">
+                Upload a .jpg, .jpeg, .png, or .svg file
             </p>
         </>
     )

@@ -41,7 +41,7 @@ const App: React.FC = () => {
       <LinkToRepo />
       <div className="p-8 pt-16 md:p-14 md:pt-20 lg:p-16">
         <Heading />
-        
+
         <div className="flex flex-col lg:flex-row lg:items-start lg:justify-center lg:h-32">
           <div className="lg:w-5/12 xl:max-w-lg">
             <ImageUpload
@@ -63,7 +63,7 @@ const App: React.FC = () => {
             }
           </div>
 
-          <CanvasContainer imageUrl={imageUrl} onPickColor={readPickedColor} />
+          {imageUrl && <CanvasContainer imageUrl={imageUrl} onPickColor={readPickedColor} />}
         </div>
       </div>
     </>
