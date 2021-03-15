@@ -1,4 +1,4 @@
-import { RGB, tailwindColors } from '../constants/colors'
+import { RGB, TailwindColor, tailwindColors } from '../constants/colors'
 
 export const hexToRGB = (hex: string) => {
   const red = parseInt(hex.slice(1, 3), 16)
@@ -27,8 +27,7 @@ export const calculateColorDifference = (firstColor: RGB, secondColor: RGB) => {
 export const getClosestTailwindColor = (pickedColor: RGB) => {
   if (pickedColor) {
     let leastDifference = Number.MAX_SAFE_INTEGER
-    let leastColorKey = ''
-    let leastColorValue = ''
+    let closestTailwindColor: Partial<TailwindColor> = {}
 
     for (const colorKey in tailwindColors) {
       let tailwindColor = hexToRGB(tailwindColors[colorKey])
@@ -36,11 +35,11 @@ export const getClosestTailwindColor = (pickedColor: RGB) => {
 
       if (colorDifference < leastDifference) {
         leastDifference = colorDifference
-        leastColorKey = colorKey
-        leastColorValue = getHexFromColor(tailwindColor)
+        closestTailwindColor.key = colorKey
+        closestTailwindColor.value = getHexFromColor(tailwindColor)
       }
     }
 
-    return { key: leastColorKey, value: leastColorValue, output: `${leastColorKey}: ${leastColorValue}` }
+    return closestTailwindColor as TailwindColor
   }
 }

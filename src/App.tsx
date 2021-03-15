@@ -1,6 +1,6 @@
 import React, { useCallback, useState, useEffect } from 'react'
 
-import { RGB } from './constants/colors'
+import { RGB, TailwindColor } from './constants/colors'
 import { getClosestTailwindColor, getHexFromColor } from './util/colors'
 import './tailwind.css'
 
@@ -9,12 +9,6 @@ import CanvasContainer from './components/CanvasContainer'
 import ColorBox from './components/ColorBox'
 import LinkToRepo from './components/LinkToRepo'
 import Heading from './components/Heading'
-
-interface TailwindColor {
-  key: string
-  value: string
-  output: string
-}
 
 const App: React.FC = () => {
   const [imageUrl, setImageUrl] = useState<string>('')
@@ -58,7 +52,7 @@ const App: React.FC = () => {
                 <ColorBox
                   color={tailwindColor.value}
                   title="Closest Tailwind color"
-                  caption={tailwindColor.output} />
+                  caption={`${tailwindColor.key}: ${tailwindColor.value}`} />
               </div>
             }
           </div>

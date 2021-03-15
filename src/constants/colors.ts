@@ -2,6 +2,11 @@ interface Color {
     [prop: string]: string
 }
 
+export interface TailwindColor {
+    key: string
+    value: string
+  }
+
 export type RGB = [number, number, number]
 
 export const tailwindColors: Color = {
