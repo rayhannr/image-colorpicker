@@ -35,10 +35,10 @@ const ImageUpload: React.FC<Props> = props => {
 
     const fileInput = (
         <>
-            <UploadImage className="mx-auto h-12 w-12 text-gray-600" />
+            <UploadImage className="mx-auto h-12 w-12 text-light-blue-500" />
             <div className="text-sm text-center">
                 <label className="relative cursor-pointer bg-transparent rounded-md font-medium focus-within:outline-none">
-                    <span className="text-gray-700 hover:text-gray-500">Upload Image</span>
+                    <span className="text-light-blue-500 hover:text-cyan-400">Upload Image</span>
                     <input
                         name="file-upload"
                         type="file"

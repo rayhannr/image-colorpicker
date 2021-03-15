@@ -13,7 +13,7 @@ const ColorBox: React.FC<Props> = props => {
             <div
                 style={{ backgroundColor: props.color }}
                 className="w-14 h-14 rounded-md my-1 mx-auto"></div>
-            <p className="text-xs text-gray-900 text-center">{props.caption}</p>
+            <p className="text-xs text-gray-900 text-center font-medium">{props.caption}</p>
         </div>
     )
 }

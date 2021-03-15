@@ -18,7 +18,7 @@ const CanvasContainer: React.FC<Props> = props => {
         if (imageUrl) {
             const canvas: HTMLCanvasElement = canvasRef.current!
             const context: CanvasRenderingContext2D = canvas.getContext('2d')!
-
+            
             const image: HTMLImageElement = imageRef.current!
             const aspectRatio: number = image.width / image.height
             const containerWidth: number = containerRef.current!.getBoundingClientRect().width
@@ -54,7 +54,7 @@ const CanvasContainer: React.FC<Props> = props => {
 
     return (
         <div ref={containerRef} className="relative rounded-md lg:w-7/12 xl:max-w-4xl lg:ml-4 xl:ml-10">
-            <canvas ref={canvasRef} className="mx-auto" style={{ cursor: imageUrl ? 'crosshair' : 'auto' }} onClick={pickColor}></canvas>
+            <canvas ref={canvasRef} className="mx-auto pb-10" style={{ cursor: imageUrl ? 'crosshair' : 'auto' }} onClick={pickColor}></canvas>
             <img src={props.imageUrl} className="hidden" ref={imageRef} alt="" />
         </div>
     )

@@ -28,19 +28,19 @@ export const getClosestTailwindColor = (pickedColor: RGB) => {
   if (pickedColor) {
     let leastDifference = Number.MAX_SAFE_INTEGER
     let leastColorKey = ''
-    let leastColor = ''
+    let leastColorValue = ''
 
     for (const colorKey in tailwindColors) {
-      let colorValue = hexToRGB(tailwindColors[colorKey])
-      let colorDifference = calculateColorDifference(colorValue, pickedColor)
+      let tailwindColor = hexToRGB(tailwindColors[colorKey])
+      let colorDifference = calculateColorDifference(tailwindColor, pickedColor)
 
       if (colorDifference < leastDifference) {
         leastDifference = colorDifference
         leastColorKey = colorKey
-        leastColor = getHexFromColor(colorValue)
+        leastColorValue = getHexFromColor(tailwindColor)
       }
     }
 
-    return { key: leastColorKey, value: leastColor, output: `${leastColorKey}: ${leastColor}` }
+    return { key: leastColorKey, value: leastColorValue, output: `${leastColorKey}: ${leastColorValue}` }
   }
 }
