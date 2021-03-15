@@ -1,6 +1,13 @@
-# Getting Started with Create React App
+# Image Color Picker
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project provides you a tool to pick a color from an image file. It will display your picked color and its closest [Tailwind color](https://tailwindcss.com/docs/customizing-colors) when you click on a pixel in the image.
+
+## Current Condition
+After the image is loaded, it will be drawn to a `canvas` and it's not responsive. I'm still searching for a way to make it responsive and update it soon (or maybe not, at least in the near future). Feel free to fork and pull request to this project.
+
+## Future updates
+* **Zoom on image** : Users will be able to zoom the image in and out to pick color easier
+* **Responsive canvas** : The image drawn on `canvas` will always fit its container even when the users change their viewport
 
 ## Available Scripts
 
