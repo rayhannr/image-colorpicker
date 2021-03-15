@@ -4,15 +4,15 @@ import { RGB } from '../constants/colors'
 
 interface Props {
     imageUrl: string
+    container: React.RefObject<HTMLDivElement>
     onPickColor: (color: RGB) => void
 }
 
-const CanvasContainer: React.FC<Props> = props => {
+const Canvas: React.FC<Props> = props => {
     const canvasRef = useRef<HTMLCanvasElement>(null)
     const imageRef = useRef<HTMLImageElement>(null)
-    const containerRef = useRef<HTMLDivElement>(null)
 
-    const { imageUrl } = props
+    const { imageUrl, container } = props
 
     useEffect(() => {
         if (imageUrl) {
@@ -21,7 +21,7 @@ const CanvasContainer: React.FC<Props> = props => {
             
             const image: HTMLImageElement = imageRef.current!
             const aspectRatio: number = image.width / image.height
-            const containerWidth: number = containerRef.current!.getBoundingClientRect().width
+            const containerWidth: number = container.current!.getBoundingClientRect().width
 
             canvas.width = Math.min(image.width, containerWidth)
             canvas.height = Math.min(image.height, containerWidth / aspectRatio)
@@ -32,7 +32,7 @@ const CanvasContainer: React.FC<Props> = props => {
             }
             context.drawImage(image, 0, 0, canvas.width, canvas.height)
         }
-    }, [imageUrl])
+    }, [imageUrl, container])
 
     const pickColor = (event: any) => {
         if (imageUrl) {
@@ -53,11 +53,11 @@ const CanvasContainer: React.FC<Props> = props => {
     }
 
     return (
-        <div ref={containerRef} className="relative rounded-md lg:w-7/12 xl:max-w-4xl lg:ml-4 xl:ml-10">
+        <>
             <canvas ref={canvasRef} className="mx-auto pb-10" style={{ cursor: imageUrl ? 'crosshair' : 'auto' }} onClick={pickColor}></canvas>
             <img src={props.imageUrl} className="hidden" ref={imageRef} alt="" />
-        </div>
+        </>
     )
 }
 
-export default CanvasContainer
+export default Canvas

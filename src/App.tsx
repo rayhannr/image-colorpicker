@@ -1,19 +1,23 @@
-import React, { useCallback, useState, useEffect } from 'react'
+import React, { useCallback, useState, useEffect, useRef } from 'react'
 
 import { RGB, TailwindColor } from './constants/colors'
 import { getClosestTailwindColor, getHexFromColor } from './util/colors'
 import './tailwind.css'
 
 import ImageUpload from './components/ImageUpload'
-import CanvasContainer from './components/CanvasContainer'
+import CanvasContainer from './components/Canvas'
 import ColorBox from './components/ColorBox'
 import LinkToRepo from './components/LinkToRepo'
 import Heading from './components/Heading'
+import Spinner from './components/Spinner'
 
 const App: React.FC = () => {
   const [imageUrl, setImageUrl] = useState<string>('')
+  const [isLoading, setIsLoading] = useState<boolean>(false)
   const [pickedColor, setPickedColor] = useState<RGB>()
   const [tailwindColor, setTailwindColor] = useState<TailwindColor>()
+
+  const containerRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     if (pickedColor) {
@@ -30,6 +34,10 @@ const App: React.FC = () => {
     setPickedColor(color)
   }
 
+  const readLoadingState = useCallback((loading: boolean) => {
+    setIsLoading(loading)
+  }, [])
+
   return (
     <>
       <LinkToRepo />
@@ -40,6 +48,7 @@ const App: React.FC = () => {
           <div className="lg:w-5/12 xl:max-w-lg">
             <ImageUpload
               onUpload={readFileUrl}
+              onLoading={readLoadingState}
               className="w-full mb-4 lg:mb-0 h-full bg-white" />
 
             {pickedColor && tailwindColor &&
@@ -57,7 +66,11 @@ const App: React.FC = () => {
             }
           </div>
 
-          {imageUrl && <CanvasContainer imageUrl={imageUrl} onPickColor={readPickedColor} />}
+          {imageUrl &&
+            <div ref={containerRef} className="relative rounded-md lg:w-7/12 xl:max-w-4xl lg:ml-4 xl:ml-10 flex items-center justify-center">
+              {isLoading ? <Spinner /> : <CanvasContainer container={containerRef} imageUrl={imageUrl} onPickColor={readPickedColor} />}
+            </div>
+          }
         </div>
       </div>
     </>

@@ -4,25 +4,34 @@ import UploadImage from './SVG/UploadImage'
 
 interface Props {
     onUpload: (url: string) => void
+    onLoading: (isLoading: boolean) => void
     className: string
 }
 
 const ImageUpload: React.FC<Props> = props => {
     const [file, setFile] = useState<File>()
-    const { onUpload } = props
+    const { onUpload, onLoading } = props
 
     useEffect(() => {
         if (!file) {
             return
         }
+
         const fileReader: FileReader = new FileReader()
         let fileUrl: string = ''
+        
+        onLoading(true)
         fileReader.onload = (event: Event) => {
             fileUrl = fileReader.result as string
             onUpload(fileUrl)
         }
         fileReader.readAsDataURL(file)
-    }, [file, onUpload])
+
+        fileReader.onloadend = (event: Event) => {
+            onLoading(false)
+        }
+
+    }, [file, onUpload, onLoading])
 
     const imagePicked = (event: ChangeEvent) => {
         let pickedFile
