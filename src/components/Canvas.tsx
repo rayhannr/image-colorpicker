@@ -15,22 +15,30 @@ const Canvas: React.FC<Props> = props => {
     const { imageUrl, container } = props
 
     useEffect(() => {
-        if (imageUrl) {
-            const canvas: HTMLCanvasElement = canvasRef.current!
-            const context: CanvasRenderingContext2D = canvas.getContext('2d')!
-            
-            const image: HTMLImageElement = imageRef.current!
-            const aspectRatio: number = image.width / image.height
-            const containerWidth: number = container.current!.getBoundingClientRect().width
-
-            canvas.width = Math.min(image.width, containerWidth)
-            canvas.height = Math.min(image.height, containerWidth / aspectRatio)
-
-            if (canvas.height > window.innerHeight) {
-                canvas.height = window.innerHeight - 100
-                canvas.width = canvas.height * aspectRatio
+        const drawCanvas = () => {
+            const canvas = canvasRef.current
+            if(canvas){
+                const context: CanvasRenderingContext2D = canvas.getContext('2d')!
+                
+                const image: HTMLImageElement = imageRef.current!
+                const aspectRatio: number = image.width / image.height
+                const containerWidth: number = container.current!.getBoundingClientRect().width
+                
+                canvas.width = Math.min(image.width, containerWidth)
+                canvas.height = Math.min(image.height, containerWidth / aspectRatio)
+                
+                if (canvas.height > window.innerHeight) {
+                    canvas.height = window.innerHeight - 100
+                    canvas.width = canvas.height * aspectRatio
+                }
+                context.drawImage(image, 0, 0, canvas.width, canvas.height)
             }
-            context.drawImage(image, 0, 0, canvas.width, canvas.height)
+        }
+        if (imageUrl) {
+            drawCanvas()
+            window.addEventListener('resize', () => {
+                drawCanvas()
+            })
         }
     }, [imageUrl, container])
 
