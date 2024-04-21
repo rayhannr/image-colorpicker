@@ -2,7 +2,6 @@ import React, { useCallback, useState, useEffect, useRef } from 'react'
 
 import { RGB, TailwindColor } from './constants/colors'
 import { getClosestTailwindColor, getHexFromColor } from './util/colors'
-import './tailwind.css'
 
 import ImageUpload from './components/ImageUpload'
 import CanvasContainer from './components/Canvas'
@@ -46,31 +45,33 @@ const App: React.FC = () => {
 
         <div className="flex flex-col lg:flex-row lg:items-start lg:justify-center lg:h-32">
           <div className="lg:w-5/12 xl:max-w-lg">
-            <ImageUpload
-              onUpload={readFileUrl}
-              onLoading={readLoadingState}
-              className="w-full mb-4 lg:mb-0 h-full bg-white" />
+            <ImageUpload onUpload={readFileUrl} onLoading={readLoadingState} className="w-full mb-4 lg:mb-0 h-full bg-white" />
 
-            {pickedColor && tailwindColor &&
+            {pickedColor && tailwindColor && (
               <div className="my-4 flex flex-row justify-between">
-                <ColorBox
-                  color={getHexFromColor(pickedColor)}
-                  title="Picked color"
-                  caption={getHexFromColor(pickedColor)} />
+                <ColorBox color={getHexFromColor(pickedColor)} title="Picked color" caption={getHexFromColor(pickedColor)} />
 
                 <ColorBox
                   color={tailwindColor.value}
                   title="Closest Tailwind color"
-                  caption={`${tailwindColor.key}: ${tailwindColor.value}`} />
+                  caption={`${tailwindColor.key}: ${tailwindColor.value}`}
+                />
               </div>
-            }
+            )}
           </div>
 
-          {imageUrl &&
-            <div ref={containerRef} className="relative rounded-md lg:w-7/12 xl:max-w-4xl lg:ml-4 xl:ml-10 flex items-center justify-center">
-              {isLoading ? <Spinner /> : <CanvasContainer container={containerRef} imageUrl={imageUrl} onPickColor={readPickedColor} />}
+          {imageUrl && (
+            <div
+              ref={containerRef}
+              className="relative rounded-md lg:w-7/12 xl:max-w-4xl lg:ml-4 xl:ml-10 flex items-center justify-center"
+            >
+              {isLoading ? (
+                <Spinner />
+              ) : (
+                <CanvasContainer container={containerRef} imageUrl={imageUrl} onPickColor={readPickedColor} />
+              )}
             </div>
-          }
+          )}
         </div>
       </div>
     </>
