@@ -56,7 +56,7 @@ const ImageUpload: React.FC<Props> = (props) => {
           />
         </label>
       </div>
-      <p className="text-sm text-gray-400">Upload a .jpg, .jpeg, .png, or .svg file</p>
+      <p className="text-sm text-gray-400">Upload a .jpg, .jpeg, .png, .webp, or .svg file</p>
     </>
   )
 
