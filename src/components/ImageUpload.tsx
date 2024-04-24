@@ -47,7 +47,13 @@ const ImageUpload: React.FC<Props> = (props) => {
       <div className="text-sm text-center">
         <label className="relative cursor-pointer bg-transparent rounded-md font-medium focus-within:outline-none">
           <span className="text-sky-500 hover:text-cyan-400">Upload Image</span>
-          <input name="file-upload" type="file" className="sr-only" accept=".svg, .jpg, .jpeg, .png" onChange={imagePicked} />
+          <input
+            name="file-upload"
+            type="file"
+            className="sr-only"
+            accept=".svg, .jpg, .jpeg, .png, .webp"
+            onChange={imagePicked}
+          />
         </label>
       </div>
       <p className="text-sm text-gray-400">Upload a .jpg, .jpeg, .png, or .svg file</p>
